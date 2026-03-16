@@ -144,4 +144,4 @@ Always use a secure secrets management service such as **AWS Secrets Manager**.
 Cybersecurity | Cloud Security | DevSecOps  
 
 LinkedIn:  
-https://linkedin.com/in/muhammadfurqan
+https://www.linkedin.com/in/muhammad-furqan---/
