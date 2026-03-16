@@ -39,42 +39,15 @@ Initially, the application stored AWS credentials directly inside the `config.py
 AWS_ACCESS_KEY_ID = "ACCESS_KEY"
 AWS_SECRET_ACCESS_KEY = "SECRET_KEY"
 AWS_REGION = "us-east-2"
+```
 
-This approach is insecure because anyone with access to the repository can steal these credentials and potentially gain access to cloud resources.
+This approach is insecure because anyone with access to the repository could steal these credentials and potentially gain access to cloud resources.
 
-This approach is insecure because anyone with access to the repository can steal these credentials and potentially gain access to cloud resources.
+---
 
-```python
-import boto3
-import json
-from botocore.exceptions import ClientError
+# 🔒 Secure Solution Using AWS Secrets Manager
 
-def get_secret():
-    secret_name = "aws-access-key"
-    region_name = "us-east-2"
-
-    session = boto3.session.Session()
-    client = session.client(
-        service_name='secretsmanager',
-        region_name=region_name
-    )
-
-    try:
-        response = client.get_secret_value(SecretId=secret_name)
-        secret = response['SecretString']
-        return secret
-
-    except ClientError as e:
-        raise e
-
-secret_json = json.loads(get_secret())
-
-AWS_ACCESS_KEY_ID = secret_json['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = secret_json['AWS_SECRET_ACCESS_KEY']
-AWS_REGION = region_name
-```python
-
-This approach is insecure because anyone with access to the repository can steal these credentials and potentially gain access to cloud resources.
+Instead of storing credentials directly in the source code, the application retrieves them securely from **AWS Secrets Manager**.
 
 ```python
 import boto3
@@ -104,73 +77,71 @@ secret_json = json.loads(get_secret())
 AWS_ACCESS_KEY_ID = secret_json['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = secret_json['AWS_SECRET_ACCESS_KEY']
 AWS_REGION = region_name
+```
 
-```python
-This ensures that sensitive credentials are never exposed inside the codebase.
+This ensures that **sensitive credentials are never exposed inside the codebase**.
 
-🧠 Key Concepts Learned
+---
 
-Secure Secret Management
+# 🧠 Key Concepts Learned
 
-Avoiding hardcoded credentials
+- Secure Secret Management  
+- Avoiding hardcoded credentials  
+- Using AWS Secrets Manager  
+- Retrieving secrets programmatically with boto3  
+- Understanding GitHub Secret Scanning  
+- Forking vs Cloning repositories  
+- Git rebasing and history rewriting  
+- Merge conflict resolution  
+- Removing sensitive data from Git commit history  
 
-Using AWS Secrets Manager
+---
 
-Retrieving secrets programmatically with boto3
-
-Understanding GitHub Secret Scanning
-
-Forking vs Cloning repositories
-
-Git rebasing and history rewriting
-
-Merge conflict resolution
-
-Removing sensitive data from Git commit history
-
-🔄 Git Security Workflow
+# 🔄 Git Security Workflow
 
 During this project I practiced secure Git workflows including:
 
-Forking the original repository
+- Forking the original repository  
+- Updating and committing code changes  
+- Attempting to push code with credentials  
+- Observing GitHub Secret Scanning blocking exposed secrets  
+- Using Git interactive rebase to remove sensitive commits  
+- Resolving merge conflicts  
+- Verifying that credentials were removed from the repository history  
 
-Updating and committing code changes
+---
 
-Attempting to push code with credentials
+# 📊 Project Reflection
 
-Observing GitHub Secret Scanning blocking exposed secrets
+**Completion Time:** ~2 hours  
 
-Using Git interactive rebase to remove sensitive commits
-
-Resolving merge conflicts
-
-Verifying that credentials were removed from the repository history
-
-📊 Project Reflection
-
-Completion Time: ~2 hours
-
-Most Challenging Part:
+**Most Challenging Part:**  
 Resolving merge conflicts while cleaning the commit history to remove exposed credentials.
 
-Most Rewarding Part:
+**Most Rewarding Part:**  
 Successfully securing the application by retrieving credentials from AWS Secrets Manager and ensuring the repository is safe to share publicly.
 
-📄 Project Documentation
+---
+
+# 📄 Project Documentation
 
 Full project walkthrough and explanation:
 
-📎 legendary-aws-security-secretsmanager.pdf
+📎 `legendary-aws-security-secretsmanager.pdf`
 
-🚀 Key Security Takeaway
+---
 
-Secrets should never be stored in source code.
-Always use a secure secrets management service such as AWS Secrets Manager.
+# 🚀 Key Security Takeaway
 
-👨‍💻 Author
+Secrets should **never be stored in source code**.  
+Always use a secure secrets management service such as **AWS Secrets Manager**.
 
-Muhammad Furqan
+---
 
-Cybersecurity | Cloud Security | DevSecOps
+# 👨‍💻 Author
 
-LinkedIn: https://linkedin.com/in/muhammadfurqan
+**Muhammad Furqan**  
+Cybersecurity | Cloud Security | DevSecOps  
+
+LinkedIn:  
+https://linkedin.com/in/muhammadfurqan
