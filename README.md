@@ -72,7 +72,11 @@ secret_json = json.loads(get_secret())
 AWS_ACCESS_KEY_ID = secret_json['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = secret_json['AWS_SECRET_ACCESS_KEY']
 AWS_REGION = region_name
+```python
 
+This approach is insecure because anyone with access to the repository can steal these credentials and potentially gain access to cloud resources.
+
+```python
 import boto3
 import json
 from botocore.exceptions import ClientError
@@ -101,6 +105,7 @@ AWS_ACCESS_KEY_ID = secret_json['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = secret_json['AWS_SECRET_ACCESS_KEY']
 AWS_REGION = region_name
 
+```python
 This ensures that sensitive credentials are never exposed inside the codebase.
 
 🧠 Key Concepts Learned
